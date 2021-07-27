@@ -251,13 +251,17 @@ def adminML(request):
 
     sns.barplot(algorithms, scores)
     plt.show()
-    for i in range(len(algorithms)):
-        print("The accuracy score achieved using " + algorithms[i] + " is: " + str(scores[i]) + " %")
-        sns.set(rc={'figure.figsize': (15, 8)})
-    plt.xlabel("Algorithms")
-    plt.ylabel("Accuracy score")
-    sns.barplot(algorithms, scores)
-    plt.show()
+    
+    #xgbost
+    from sklearn.ensemble import RandomForestClassifier
+    model6 = RandomForestClassifier(random_state=1)# get instance of model
+    t0=time.time()
+    model6.fit(X_train, Y_train) # Train/Fit model
+    print("training time:",round(time.time()-t0, 3),"s")
+    t1=time.time()
+    y_pred6 = model6.predict(X_test) # get y predictions
+    print("predict time:",round(time.time()-t1, 3),"s")
+    print(classification_report(Y_test, y_pred6)) # output accuracy
 
     importance = model6.feature_importances_
     # summarize feature importance
