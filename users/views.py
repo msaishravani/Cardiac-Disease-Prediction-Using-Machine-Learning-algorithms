@@ -72,6 +72,22 @@ def UserAddData(request):
     if request.method == 'POST':
         form = HeartDataForm(request.POST)
         if form.is_valid():
+            age = form.cleaned_data['age']
+            sex = form.cleaned_data['sex']
+            cp = form.cleaned_data['cp']
+            trestbps = form.cleaned_data['trestbps']
+            chol = form.cleaned_data['chol']
+            fbs = form.cleaned_data['fbs']
+            restecg = form.cleaned_data['restecg']
+            thalach = form.cleaned_data['thalach']
+            exang = form.cleaned_data['exang']
+            oldpeak = form.cleaned_data['oldpeak']
+            slope = form.cleaned_data['slope']
+            ca = form.cleaned_data['ca']
+            thal = form.cleaned_data['thal']
+           
+            global inputs
+            inputs=[age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal]
             print('Data is Valid')
             form.save()
             messages.success(request, 'Data Added Successfull')
@@ -286,7 +302,18 @@ def UserMachineLearning(request):
     score_nn = round(accuracy_score(Y_pred_nn, Y_test) * nnn, 2)
 
     print("The accuracy score achieved using Neural Network is: " + str(score_nn) + " %")
-
+    
+     #xgbost
+    from sklearn.ensemble import RandomForestClassifier
+    model6 = RandomForestClassifier(random_state=1)# get instance of model
+    t0=time.time()
+    model6.fit(X_train, Y_train) # Train/Fit model
+    print("training time:",round(time.time()-t0, 3),"s")
+    t1=time.time()
+    y_pred6 = model6.predict(X_test) # get y predictions
+    print("predict time:",round(time.time()-t1, 3),"s")
+    print(classification_report(Y_test, y_pred6)) # output accuracy
+    
     scores = [score_lr, score_nb, score_svm, score_knn, score_dt, score_nn]
     algorithms = ["LR", "NB", "SVM", "KNN", "DT", "Neural Network"]
 
@@ -298,13 +325,22 @@ def UserMachineLearning(request):
 
     sns.barplot(algorithms, scores)
     plt.show()
+     res=model6.predict(sc.transform([inputs]))
+    if res==[0]:
+        se="NO chances for heart disease"
+    else:
+        se="More chances for heart disease"
     dict = {
-        "score_lr" :score_lr,
         "score_nb" :score_nb,
+        "score_lr" :score_lr,
         "score_svm" :score_svm,
         "score_knn" :score_knn,
         "score_dt" :score_dt,
         "score_nn" :score_nn,
+        
+        "se":se,
+        }
+            
 
-    }
     return render(request, 'users/Machinelearning.html', dict)
+
