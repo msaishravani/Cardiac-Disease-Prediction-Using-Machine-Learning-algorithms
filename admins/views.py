@@ -148,7 +148,7 @@ def adminML(request):
     print(Y_pred_lr.shape)
     score_lr = round(accuracy_score(Y_pred_lr, Y_test) * ln, 2)
 
-    print("The accuracy score achieved using genetic algorithm is: " + str(score_lr) + " %")
+    print("The accuracy score achieved using lr algorithm is: " + str(score_lr) + " %")
 
     # Naive Bayes
     from sklearn.naive_bayes import GaussianNB
@@ -162,7 +162,7 @@ def adminML(request):
     print(Y_pred_nb.shape)
     score_nb = round(accuracy_score(Y_pred_nb, Y_test) * nnb, 2)
 
-    print("The accuracy score achieved using Ant colony optimization algorithm is: " + str(score_nb) + " %")
+    print("The accuracy score achieved using nb algorithm is: " + str(score_nb) + " %")
 
     # SVM
     from sklearn import svm
@@ -189,7 +189,7 @@ def adminML(request):
     score_knn = round(accuracy_score(Y_pred_knn, Y_test) * kn, 2)
 
 
-    print("The accuracy score achieved using Bat colony optimization is: " + str(score_knn) + " %")
+    print("The accuracy score achieved using knn is: " + str(score_knn) + " %")
 
     # Decision Tree
     from sklearn.tree import DecisionTreeClassifier
@@ -214,7 +214,7 @@ def adminML(request):
     print(Y_pred_dt.shape)
     score_dt = round(accuracy_score(Y_pred_dt, Y_test) * dst, 2)
 
-    print("The accuracy score achieved using Artificial bee colony optimization is: " + str(score_dt) + " %")
+    print("The accuracy score achieved using  DT is: " + str(score_dt) + " %")
 
     # Neural Network
     from keras.models import Sequential
@@ -237,8 +237,7 @@ def adminML(request):
     print("The accuracy score achieved using Neural Network is: " + str(score_nn) + " %")
 
     scores = [score_lr, score_nb, score_svm, score_knn, score_dt, score_nn]
-    algorithms = ["genetic algorithm", "Ant colony optimization", "SVM", "Bat colony optimization", "Artificial bee colony", "Neural Network"]
-
+    algorithms = ["LR", "NB", "SVM", "KNN", "DT", "Neural Network"]
     for i in range(len(algorithms)):
         print("The accuracy score achieved using " + algorithms[i] + " is: " + str(scores[i]) + " %")
         sns.set(rc={'figure.figsize': (15, 8)})
