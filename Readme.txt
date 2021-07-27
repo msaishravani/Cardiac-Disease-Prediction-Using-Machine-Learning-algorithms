@@ -5,7 +5,7 @@ Title : PROGNOSIS OF CARDIAC DISEASE USING BIO INSPIRED ALGORITHMS
 Preventing Heart diseases has become more than necessary. Good data-driven systems for predicting heart diseases can improve the entire research and prevention process, making sure that more people can live healthy lives. 
 This is where Machine Learning comes into play. Machine Learning helps in predicting the Heart diseases, and the predictions made are quite accurate.
 The project involved analysis of the heart disease patient dataset with proper data processing. 
-Then, different models were trained and and predictions are made with different algorithms KNN,SVM, Nwural Networks with and without using Bio-Inspired Algorithms. 
+Then, different models were trained and and predictions are made with different algorithms . 
 The dataset we used is form Kaggle website.
 
 I've used a variety of Machine Learning algorithms, implemented in Python, to predict the presence of heart disease in a patient. 
@@ -16,7 +16,8 @@ Machine Learning algorithms used:
 Support Vector Machine 
 K-Nearest Neighbours 
 Neural Network
-BAT Algorithm
+Decision Tree
+Logisitic Regression
 
 ** Important**
 Before running the file, please make sure to download python and neccessary Numpy, Pandas, Matplotlib libraries.
