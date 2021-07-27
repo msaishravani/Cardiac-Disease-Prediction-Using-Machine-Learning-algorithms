@@ -1,0 +1,18 @@
+{% extends 'userbase.html'%}
+{%block contents%}
+
+ <section id="intro">
+
+    <div class="intro-text">
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <p>Accurancy</p>
+      <p><h3>genetic algorithm:{{score_lr}}</h3></p>
+      <p><h3>Ant colony optimization algorithm:{{score_nb}} </h3></p>
+      <p><h3>SVM:{{score_svm}} </h3></p>
+      <p><h3>Bat colony optimization:{{score_knn}} </h3></p>
+      <p><h3>Artificial bee colony optimization:{{score_dt}} </h3></p>
+      <p><h3>Neural Network:{{score_nn}} </h3></p>
+      <!--<a href="#about" class="btn-get-started scrollto">Get Started</a>-->
+    </div>
+  </section>
+{%endblock%}
