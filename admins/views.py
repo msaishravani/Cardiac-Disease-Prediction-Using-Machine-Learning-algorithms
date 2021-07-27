@@ -135,6 +135,11 @@ def adminML(request):
     print(Y_train.shape)
     Y_test.shape
     print(Y_test.shape)
+    
+    from sklearn.preprocessing import StandardScaler
+    sc = StandardScaler()
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)
 
     # Linear regression
     from sklearn.metrics import accuracy_score
@@ -246,13 +251,47 @@ def adminML(request):
 
     sns.barplot(algorithms, scores)
     plt.show()
-    dict = {
-        "score_lr" :score_lr,
+    for i in range(len(algorithms)):
+        print("The accuracy score achieved using " + algorithms[i] + " is: " + str(scores[i]) + " %")
+        sns.set(rc={'figure.figsize': (15, 8)})
+    plt.xlabel("Algorithms")
+    plt.ylabel("Accuracy score")
+    sns.barplot(algorithms, scores)
+    plt.show()
+
+    importance = model6.feature_importances_
+    # summarize feature importance
+    for i,v in enumerate(importance):
+        print('Feature: %0d, Score: %.5f' % (i,v))
+    index= dataset.columns[:-1]
+    importance = pd.Series(model6.feature_importances_, index=index)
+    importance.nlargest(13).plot(kind='barh', colormap='winter')
+    plt.show()
+    if 'inputs' in locals():
+        res=model6.predict(sc.transform([inputs]))
+        if res==[0]:
+            se="NO chances for heart disease"
+        else:
+            se="More chances for heart disease"
+        dict = {
         "score_nb" :score_nb,
+        "score_lr" :score_lr,
         "score_svm" :score_svm,
         "score_knn" :score_knn,
         "score_dt" :score_dt,
         "score_nn" :score_nn,
+        "se":se,
+        }
+    else:
+        dict = {
+        "score_nb" :score_nb,
+        "score_lr" :score_lr,
+        "score_svm" :score_svm,
+        "score_knn" :score_knn,
+        "score_dt" :score_dt,
+        "score_nn" :score_nn,
+       
+        
 
     }
     return render(request, 'users/Machinelearning.html', dict)
